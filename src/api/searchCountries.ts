@@ -1,0 +1,26 @@
+import { HttpError } from './HttpError.js';
+
+export async function searchCountries(
+  query: string,
+  signal: AbortSignal,
+): Promise<unknown[]> {
+  const url = `https://countries.dev/name/${encodeURIComponent(query.trim())}`;
+
+  const response = await fetch(url, { signal });
+
+  if (response.status === 404) {
+    return [];
+  }
+
+  if (!response.ok) {
+    throw new HttpError(response.status);
+  }
+
+  const data: unknown = await response.json();
+
+  if (!Array.isArray(data)) {
+    throw new TypeError('Expected an array of countries');
+  }
+
+  return data;
+}
