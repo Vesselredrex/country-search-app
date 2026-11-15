@@ -1,0 +1,38 @@
+{
+  "name": "country-search-app",
+  "version": "1.0.0",
+  "description": "Country search application built with TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run --passWithNoTests",
+    "build": "tsc",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vesselredrex/country-search-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vesselredrex/country-search-app/issues"
+  },
+  "homepage": "https://github.com/Vesselredrex/country-search-app#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.10.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0"
+  },
+  "type": "module"
+}
