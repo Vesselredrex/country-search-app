@@ -61,19 +61,46 @@ function renderCountries(rawCountries: unknown[]): void {
   status.textContent = `Found ${countries.length} countries.`;
 
   for (const country of countries) {
-    const card = document.createElement('article');
+    const card = document.createElement('details');
     card.className = 'country-card';
 
-    const title = document.createElement('h2');
+    const summary = document.createElement('summary');
+
+    const title = document.createElement('strong');
     title.textContent = `${country.flag ?? ''} ${country.name}`;
 
-    const capital = document.createElement('p');
-    capital.textContent = `Capital: ${country.capital ?? 'Unknown'}`;
+    const overview = document.createElement('span');
+    overview.textContent = ` — ${country.capital ?? 'Unknown capital'}, ${country.region ?? 'Unknown region'}`;
 
-    const region = document.createElement('p');
-    region.textContent = `Region: ${country.region ?? 'Unknown'}`;
+    summary.append(title, overview);
+    card.append(summary);
 
-    card.append(title, capital, region);
+    function addDetail(label: string, value: string): void {
+      const paragraph = document.createElement('p');
+
+      const heading = document.createElement('strong');
+      heading.textContent = `${label}: `;
+
+      paragraph.append(heading, document.createTextNode(value));
+
+      card.append(paragraph);
+    }
+
+    const formatNumber = (value: number | null): string =>
+      value === null ? 'Unknown' : new Intl.NumberFormat('en-US').format(value);
+
+    addDetail('Capital', country.capital ?? 'Unknown');
+    addDetail('Region', country.region ?? 'Unknown');
+    addDetail('Subregion', country.subregion ?? 'Unknown');
+    addDetail('Population', formatNumber(country.population));
+    addDetail(
+      'Area',
+      country.area === null ? 'Unknown' : `${formatNumber(country.area)} km²`,
+    );
+    addDetail('Languages', country.languages.join(', ') || 'Unknown');
+    addDetail('Currencies', country.currencies.join(', ') || 'Unknown');
+    addDetail('Borders', country.borders.join(', ') || 'None');
+
     results.append(card);
   }
 }
